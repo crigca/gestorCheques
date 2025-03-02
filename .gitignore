@@ -71,3 +71,6 @@ node_modules/\n.next/\n.env\nprisma/dev.db\nprisma/migrations/
 # Ignorar base de datos de desarrollo de Prisma
 prisma/dev.db
 prisma/migrations/
+
+# Ignorar binarios generados
+/dist/
