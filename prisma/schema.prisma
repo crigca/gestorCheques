@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")  // Usamos la URL del .env
+}
+
+generator client {
+  provider = "prisma-client-js"  // Generamos el cliente de Prisma
+}
+
+// Aquí definimos el modelo de Cheque
+model Cheque {
+  id            Int      @id @default(autoincrement())  // ID único
+  holder        String?   // Titular del cheque
+  date          DateTime  // Fecha del cheque
+  dueDate       DateTime // Fecha de vencimiento
+  amount        Float    // Monto del cheque
+  checkNumber   String   // Número de cheque
+  bankName      String?   // Nombre del banco
+  bandeja       String   @default("entrada")// columna que indica si es "entrada" o "salida"
+  createdAt     DateTime @default(now())  // Fecha de creación
+  
+}
