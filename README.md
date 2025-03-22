@@ -1,85 +1,123 @@
+
 📌 Gestor de Cheques
 
 Gestor de Cheques es una aplicación web diseñada para administrar cheques de manera sencilla y eficiente. Permite registrar, editar, eliminar y visualizar cheques en bandejas de entrada y salida con un límite máximo de 30 cheques.
 
 🚀 Tecnologías Utilizadas
 
-Next.js (Framework de React para aplicaciones web)
+Next.js – Framework de React para aplicaciones web
 
-TypeScript (Para tipado seguro y mejor mantenibilidad)
+TypeScript – Tipado seguro y mantenible
 
-Prisma (ORM para manejar la base de datos SQLite)
+Prisma ORM – Acceso a base de datos (SQLite para desarrollo, MySQL/Aurora en producción)
 
-Tailwind CSS (Para un diseño limpio y estilizado)
+Tailwind CSS – Diseño moderno y responsivo
 
-React Hooks (useState, useEffect para manejo de estado y efectos)
+React Hooks – useState, useEffect para manejar el estado
 
 🛠️ Instalación y Configuración
 
-1️⃣ Clonar el repositorio
+1⃣ Clonar el repositorio
 
-  git clone https://github.com/tu-usuario/gestor-cheques.git
-  cd gestor-cheques
+git clone https://github.com/tu-usuario/gestor-cheques.git
+cd gestor-cheques
 
-2️⃣ Instalar dependencias
+2⃣ Instalar dependencias
 
-  npm install
+npm install
 
-3️⃣ Configurar la base de datos con Prisma
+⚙️ Modos de ejecución (local vs producción)
 
-Crear un archivo .env en la raíz del proyecto y agregar la configuración de SQLite:
+Esta app puede conectarse a dos bases de datos distintas según el entorno:
+
+Entorno
+
+Base de Datos
+
+Prisma Schema
+
+Archivo .env
+
+Local
+
+SQLite (desarrollo)
+
+schema.local.prisma
+
+.env.local
+
+Producción
+
+Aurora MySQL (AWS)
+
+schema.prisma
+
+Configurada en Vercel env
+
+▶️ Desarrollo local (modo seguro)
+
+Asegurate de tener un archivo .env.local con esta línea:
 
 DATABASE_URL="file:./prisma/dev.db"
 
-Ejecutar las migraciones para generar la base de datos:
+Ejecutá la migración para generar la base local:
 
-  npx prisma migrate dev --name init
+npm run migrate:local
 
-(Opcional) Abrir Prisma Studio para ver la base de datos:
+Generá el cliente Prisma:
 
-  npx prisma studio
+npm run generate:local
 
-4️⃣ Iniciar el servidor
+Levantá el servidor en modo dev:
 
-  npm run dev
+npm run dev
 
-La aplicación estará disponible en: http://localhost:3000
+(Prisma Studio también está disponible con npm run studio:local)
+
+💻 Producción (Vercel + Aurora MySQL)
+
+En producción, la app está desplegada en Vercel, usando una base de datos Aurora MySQL en AWS RDS.
+
+Vercel tiene configurada una variable de entorno: DATABASE_URL
+
+Prisma utiliza schema.prisma como esquema base.
+
+La migración a producción se hace manualmente desde consola:
+
+npx prisma migrate deploy
+
+📦 Scripts disponibles
+
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "postinstall": "prisma generate",
+  "migrate:local": "DATABASE_URL='file:./prisma/dev.db' npx prisma migrate dev --schema=prisma/schema.local.prisma",
+  "generate:local": "DATABASE_URL='file:./prisma/dev.db' npx prisma generate --schema=prisma/schema.local.prisma",
+  "studio:local": "npx prisma studio --schema=prisma/schema.local.prisma"
+}
 
 📌 Uso de la Aplicación
 
 🏠 Inicio
 
-La pantalla principal muestra un resumen del sistema y su propósito.
+Pantalla principal con información general.
 
 📥 Bandeja de Entrada
 
-Agregar un cheque a la bandeja de entrada.
-
-Ver la lista de cheques recibidos.
-
-Editar o eliminar cheques.
-
-Límite: 30 cheques en total (entrada + salida).
+Agregar / ver / editar / eliminar cheques recibidos.
 
 📤 Bandeja de Salida
 
-Agregar un cheque a la bandeja de salida.
+Agregar / ver / editar / eliminar cheques emitidos.
 
-Ver la lista de cheques enviados.
+📁 Panel General
 
-Editar o eliminar cheques.
+Visualización total de los cheques.
 
-📑 Panel General
-
-Visualizar todos los cheques en un solo lugar.
-
-Editar o eliminar cheques fácilmente.
-
-⚠️ Límite de Cheques
-
-Se muestra un modal de advertencia cuando se alcanzan los 30 cheques.
-
-No se pueden agregar más cheques hasta eliminar alguno.
+⚠️ Límite: 30 cheques máximo entre entrada y salida. Se bloquea el agregado con un modal de advertencia.
 
 📡 API - Endpoints Disponibles
 
@@ -93,30 +131,32 @@ GET
 
 /api/cheques
 
-Obtener todos los cheques.
+Obtener todos los cheques
 
 POST
 
 /api/cheques
 
-Agregar un nuevo cheque.
+Agregar un nuevo cheque
 
 GET
 
 /api/cheques/:id
 
-Obtener un cheque por su ID.
+Obtener un cheque por ID
 
 PUT
 
 /api/cheques/:id
 
-Editar un cheque existente.
+Editar un cheque existente
 
 DELETE
 
 /api/cheques/:id
 
-Eliminar un cheque por su ID.
+Eliminar un cheque por ID
+
+
 
 

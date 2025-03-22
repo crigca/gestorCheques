@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 // prisma/schema.prisma
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")  // Usamos la URL del .env
+  provider = "mysql"
+  url      = env("DATABASE_URL")  
 }
 
 generator client {
