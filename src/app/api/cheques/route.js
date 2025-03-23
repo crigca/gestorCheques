@@ -26,6 +26,7 @@ export async function GET() {
  * @param {Request} request - Objeto de solicitud HTTP con los datos del cheque.
  * @returns {NextResponse} JSON con el cheque creado o un mensaje de error.
  */
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -62,6 +63,8 @@ export async function POST(request) {
     return NextResponse.json({ error: "Error al procesar la solicitud" }, { status: 500 });
   }
 }
+
+
 
 /**
  * @description Actualiza un cheque existente.

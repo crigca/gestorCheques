@@ -79,7 +79,7 @@ export default function Outbox() {
 
       {/* ✅ Mensaje de éxito al registrar un cheque */}
       {successMessage && (
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white p-4 rounded-md shadow-lg text-center">
+        <div className="mt-12 bg-green-500 text-white text-xl font-bold p-6 rounded-lg shadow-lg w-full max-w-xl text-center animate-fade-in">
           {successMessage}
         </div>
       )}
@@ -103,7 +103,7 @@ export default function Outbox() {
 
         <div className="mb-4">
           <label htmlFor="amount" className="block text-sm font-medium">Monto</label>
-          <input type="number" id="amount" name="amount" step="0.01" className="mt-1 p-2 border rounded-md w-full" placeholder="Monto del cheque" required />
+          <input type="number" id="amount" name="amount" step="0.01" min="0.01" className="mt-1 p-2 border rounded-md w-full" placeholder="Monto del cheque" required />
         </div>
 
         <div className="mb-4">

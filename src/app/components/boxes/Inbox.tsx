@@ -79,7 +79,7 @@ export default function Inbox() {
 
       {/* ✅ Mensaje de éxito al registrar un cheque */}
       {successMessage && (
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded-md shadow-lg text-center">
+        <div className="mt-6 bg-green-500 text-white text-lg font-semibold p-4 rounded-md shadow-md w-full max-w-lg text-center animate-fade-in">
           {successMessage}
         </div>
       )}
@@ -103,7 +103,7 @@ export default function Inbox() {
 
         <div className="mb-4">
           <label htmlFor="amount" className="block text-sm font-medium">Monto</label>
-          <input type="number" id="amount" name="amount" step="0.01" className="mt-1 p-2 border rounded-md w-full" placeholder="Monto del cheque" required />
+          <input type="number" id="amount" name="amount" step="0.01" min="0.01" className="mt-1 p-2 border rounded-md w-full" placeholder="Monto del cheque" required />
         </div>
 
         <div className="mb-4">
