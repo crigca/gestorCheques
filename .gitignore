@@ -50,3 +50,4 @@ next-env.d.ts
 # editors
 .vscode/
 prisma/schema.local.prisma
+dev-notes.md
