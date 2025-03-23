@@ -84,6 +84,8 @@ export default function EditChequeModal({ cheque, onClose, onSave }: Props) {
           <input
             type="number"
             value={editedCheque.amount}
+            min="0.01"
+            step="0.01"
             onChange={(e) => setEditedCheque({ ...editedCheque, amount: parseFloat(e.target.value) })}
             className="w-full p-2 border rounded mb-2"
           />

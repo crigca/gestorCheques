@@ -95,10 +95,11 @@ export default function GeneralPanel() {
   };
 
   return (
-    <div className="p-8 text-center">
-      <h1 className="text-4xl font-extrabold text-gray-800 mb-5 uppercase tracking-wide">
-        📑 Panel General de Cheques
-      </h1>
+    <div className="px-4 sm:px-8 py-6 text-center">
+      <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-800 mb-5 uppercase tracking-wide break-words text-center">
+  📑 Panel General de Cheques
+</h1>
+
 
       {/* Modal de Edición */}
       {editingCheque && (

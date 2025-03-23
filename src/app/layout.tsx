@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/sidebar/Sidebar";  
+import MobileMenu from "./components/sidebar/MobileMenu"
 
 // ✅ Importación de tipografías de Google Fonts con Next.js
 const geistSans = Geist({
@@ -26,31 +27,41 @@ export const metadata: Metadata = {
  * @param {React.ReactNode} props.children - Contenido dinámico de cada página.
  * @returns {JSX.Element} Estructura de la aplicación con header, sidebar, contenido y footer.
  */
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="flex min-h-screen flex-col">
           
-          {/* ✅ Header */}
-          <header className="bg-blue-600 text-white p-4">
-            <h1 className="text-2xl">Gestor de Cheques</h1>
+          {/* ✅ Header con menú móvil */}
+          <header className="w-full bg-blue-600 text-white">
+            <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+              <div className="sm:hidden">
+                <MobileMenu />
+              </div>
+              <h1 className="text-lg sm:text-2xl font-semibold text-center sm:text-left w-full sm:w-auto">
+                Gestor de Cheques
+              </h1>
+            </div>
           </header>
 
+          {/* ✅ Contenido y Sidebar */}
           <div className="flex flex-1">
-            
-            {/* ✅ Sidebar */}
-            <Sidebar />
-
-            {/* ✅ Contenido principal */}
-            <main className="flex-1 p-8 bg-gray-100">{children}</main>
+            <div className="hidden sm:block">
+              <Sidebar />
+            </div>
+            <main className="flex-1 p-4 sm:p-8 bg-gray-100 overflow-x-auto">
+              {children}
+            </main>
           </div>
 
           {/* ✅ Footer */}
-          <footer className="bg-blue-600 text-white p-4 text-center">
-            <p>&copy; {new Date().getFullYear()} Gestor de Cheques. Todos los derechos reservados.</p>
+          <footer className="w-full bg-blue-600 text-white">
+            <div className="max-w-7xl mx-auto px-4 py-4 text-center text-sm sm:text-base">
+              <p>&copy; {new Date().getFullYear()} Gestor de Cheques. Todos los derechos reservados.</p>
+            </div>
           </footer>
         </div>
       </body>
