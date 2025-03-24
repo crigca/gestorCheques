@@ -4,38 +4,49 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react"; // íconos de hamburguesa y cerrar
 
 export default function MobileMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="sm:hidden p-4 bg-blue-600 text-white">
-      {/* Botón Hamburguesa */}
-      <button onClick={toggleMenu} className="flex items-center">
-        {isOpen ? <X size={28} /> : <Menu size={28} />}
-        <span className="ml-2 font-semibold">Menú</span>
+    <>
+      {/* Botón hamburguesa */}
+      <button
+        className="text-white sm:hidden"
+        onClick={() => setOpen(!open)}
+        aria-label="Abrir menú"
+      >
+        {open ? <X size={28} /> : <Menu size={28} />}
       </button>
 
-      {/* Menú desplegable */}
-      {isOpen && (
-        <nav className="mt-4 bg-gray-800 rounded-md shadow-md p-4 space-y-2">
-          <Link href="/" onClick={() => setIsOpen(false)}>
-            <p className="block text-white hover:text-blue-300">Inicio</p>
-          </Link>
-          <Link href="/general" onClick={() => setIsOpen(false)}>
-            <p className="block text-white hover:text-blue-300">Panel General</p>
-          </Link>
-          <Link href="/inbox" onClick={() => setIsOpen(false)}>
-            <p className="block text-white hover:text-blue-300">Bandeja Entrada</p>
-          </Link>
-          <Link href="/outbox" onClick={() => setIsOpen(false)}>
-            <p className="block text-white hover:text-blue-300">Bandeja Salida</p>
-          </Link>
-          <Link href="/about" onClick={() => setIsOpen(false)}>
-            <p className="block text-white hover:text-blue-300">Sobre Nosotros</p>
-          </Link>
-        </nav>
+      {/* Overlay + Menú */}
+      {open && (
+        <>
+          {/* Fondo oscuro más sutil */}
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={() => setOpen(false)}
+          ></div>
+
+          {/* Menú lateral más compacto */}
+          <div className="fixed top-16 left-0 w-3/4 bg-gray-800/90 text-white p-4 rounded-tr-xl rounded-br-xl shadow-lg z-50 h-auto space-y-3">
+            {[
+              { label: "Inicio", path: "/" },
+              { label: "Panel General", path: "/general" },
+              { label: "Bandeja Entrada", path: "/inbox" },
+              { label: "Bandeja Salida", path: "/outbox" },
+              { label: "Sobre Nosotros", path: "/about" },
+            ].map(({ label, path }) => (
+              <Link
+                key={label}
+                href={path}
+                onClick={() => setOpen(false)}
+                className="block py-2 px-3 rounded hover:bg-gray-700 transition text-sm font-medium"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
